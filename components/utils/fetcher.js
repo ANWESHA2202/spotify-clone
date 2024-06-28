@@ -1,4 +1,4 @@
-const BASE_URL = "https://cms.samespace.com";
+export const BASE_URL = "https://cms.samespace.com";
 
 const fetcher = async (url, method = "GET", requestBody = {}) => {
   try {

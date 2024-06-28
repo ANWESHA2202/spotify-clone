@@ -33,7 +33,7 @@ const SongCollection = ({ currentTab }) => {
   const filterCollectionForTab = () => {
     let filteredData = songCollections?.filter((song) => {
       if (currentTab === "foryou") {
-        return song?.top_track === false;
+        return true;
       } else {
         return song?.top_track === true;
       }
@@ -51,9 +51,9 @@ const SongCollection = ({ currentTab }) => {
 
   //component return
   return (
-    <div>
+    <div className={styles.songCollectionsContainer}>
       <TabsSwitcher />
-      <Search />
+      {/* <Search /> */}
       <CurrentTabCollection collection={filteredCollections} />
     </div>
   );

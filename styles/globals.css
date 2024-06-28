@@ -9,22 +9,5 @@
   }
   body {
     overflow: hidden;
-    background-image: url("https://cms.samespace.com/assets/4f718272-6b0e-42ee-92d0-805b783cb471");
-    background-size: cover;
-    background-position: center;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: -100px;
-      left: -100px;
-      width: 200vw;
-      height: 200vh;
-      background-image: inherit;
-      background-size: cover;
-      background-position: center;
-      filter: blur(50px);
-      z-index: -1;
-    }
   }
 }

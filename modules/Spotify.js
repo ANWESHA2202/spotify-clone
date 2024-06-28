@@ -23,7 +23,14 @@ const Spotify = () => {
         setSongCollections,
       }}
     >
-      <div className={styles.spotifyContainer}>
+      <div
+        className={styles.spotifyContainer}
+        style={{
+          background: `linear-gradient(to bottom right, ${
+            currentSongData?.accent || "rgba(54, 134, 30, 0.37)"
+          }, #000 90% 100%)`,
+        }}
+      >
         <Profile />
         <SongCollection />
       </div>

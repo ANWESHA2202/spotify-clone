@@ -2,7 +2,14 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["https://cms.samespace.com/"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cms.samespace.com",
+        port: "",
+        pathname: "*",
+      },
+    ],
   },
 };
 
