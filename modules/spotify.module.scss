@@ -1,6 +1,6 @@
 .spotifyContainer {
   display: grid;
-  grid-template-columns: 30% 30% 40%;
+  grid-template-columns: 23% 30% 47%;
   height: 100vh;
 
   > div {
@@ -16,4 +16,19 @@
   flex-direction: column;
   height: 95% !important;
   justify-content: space-between;
+}
+
+.tabsHeader {
+  display: flex;
+  gap: 1rem;
+  height: 3rem;
+  align-items: flex-end;
+  font-weight: bold;
+  font-size: 1.2rem;
+  span {
+    cursor: pointer;
+  }
+  .inactive {
+    color: #ffffff8f;
+  }
 }
