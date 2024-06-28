@@ -1,7 +1,13 @@
 .spotifyContainer {
   display: grid;
   grid-template-columns: 23% 30% 47%;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 0, 0, 0.37),
+    #000 90% 100%
+  );
 
   > div {
     padding: 10px;

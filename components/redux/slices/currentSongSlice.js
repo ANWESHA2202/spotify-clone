@@ -3,12 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 export const currentSongSlice = createSlice({
   name: "currentSong",
   initialState: {
-    currentSong: {},
+    currentSongId: "",
     currentTab: "toptracks",
   },
   reducers: {
     modifyCurrentSong: (state, action) => {
-      state.currentSong = action.payload;
+      state.currentSongId = action.payload;
     },
     switchCurrentTab: (state, action) => {
       state.currentTab = action.payload;
