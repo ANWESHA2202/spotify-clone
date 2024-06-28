@@ -1,0 +1,19 @@
+.spotifyContainer {
+  display: grid;
+  grid-template-columns: 30% 30% 40%;
+  height: 100vh;
+
+  > div {
+    padding: 10px;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
+// Profile section styles
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  height: 95% !important;
+  justify-content: space-between;
+}
