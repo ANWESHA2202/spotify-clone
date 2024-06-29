@@ -5,25 +5,30 @@ import { useContext, useEffect, useRef, useState } from "react";
 import styles from "@/modules/spotify.module.scss";
 //context
 import { SpotifyContext } from "../Spotify";
-import { modifyCurrentSong } from "@/components/redux/slices/currentSongSlice";
-import { BASE_URL } from "@/components/utils/fetcher";
+import {
+  modifyCurrentSong,
+  removeFromPreviousStack,
+} from "@/components/redux/slices/currentSongSlice";
+//ui components from lib
 import {
   FastForwardRounded,
-  FastRewindOutlined,
   FastRewindRounded,
   MoreHorizRounded,
   PauseCircle,
   PlayCircleFilledRounded,
   VolumeUpRounded,
 } from "@mui/icons-material";
+import { BASE_URL } from "@/components/utils/fetcher";
+//utility functions
 import {
   findNextSongOfActiveTab,
   findPrevSongOfActiveTab,
 } from "@/components/utils/utilities";
 
+//global variable
 let INTERVAL = null;
 
-const CurrentSong = ({ currentSongId, currentTab }) => {
+const CurrentSong = ({ currentSongId, currentTab, previousSongStack }) => {
   //hooks instances
   const dispatch = useDispatch();
   const audioRef = useRef(null);
@@ -95,13 +100,14 @@ const CurrentSong = ({ currentSongId, currentTab }) => {
       }
       case "previous": {
         let prevSong = findPrevSongOfActiveTab(
+          previousSongStack,
           currentSongId,
           songCollections,
           currentTab
         );
         dispatch(modifyCurrentSong(prevSong?.id));
+        dispatch(removeFromPreviousStack());
         setCurrentSongData(prevSong);
-
         break;
       }
     }
@@ -190,4 +196,5 @@ const CurrentSong = ({ currentSongId, currentTab }) => {
 export default connect(({ currentSong }) => ({
   currentSongId: currentSong.currentSongId || "",
   currentTab: currentSong.currentTab || "",
+  previousSongStack: currentSong.previousSongStack || [],
 }))(CurrentSong);

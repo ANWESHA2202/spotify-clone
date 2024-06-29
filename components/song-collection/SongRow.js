@@ -38,6 +38,7 @@ const SongRow = ({ songData = {}, currentSongId }) => {
       className={`${styles.songRow} ${
         songData?.id === currentSongId ? styles.active : ""
       }`}
+      id={`song${songData?.id}`}
       onClick={() => handleCurrentSong()}
     >
       <div className={styles.leftSection}>

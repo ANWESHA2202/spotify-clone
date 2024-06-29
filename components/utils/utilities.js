@@ -56,11 +56,18 @@ export const findNextSongOfActiveTab = (
 };
 
 export const findPrevSongOfActiveTab = (
+  previousSongStack = [],
   currentSongId = "",
   songCollections = [],
   activeTab = ""
 ) => {
   let prevSong = {};
+  if (previousSongStack?.length > 1) {
+    prevSong = songCollections?.find(
+      (song) => song?.id == previousSongStack[1]
+    );
+    return prevSong;
+  }
   let prevSongs = structuredClone(songCollections)?.filter((song) => {
     if (activeTab === "foryou") {
       return true;
@@ -77,4 +84,13 @@ export const findPrevSongOfActiveTab = (
     prevSong = prevSongs[idxOfCurrentSong - 1];
   }
   return prevSong;
+};
+
+export const scrollIntoView = (element = "") => {
+  const targetDiv = document.getElementById(element);
+  if (targetDiv) {
+    targetDiv.scrollIntoView({ behavior: "smooth" });
+  } else {
+    console.error(`Element with id "${element}" not found.`);
+  }
 };

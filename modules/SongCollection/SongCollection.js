@@ -11,8 +11,9 @@ import Search from "@/components/song-collection/Search";
 import TabsSwitcher from "@/components/song-collection/TabsSwitcher";
 //utility functions
 import fetcher from "@/components/utils/fetcher";
+import { scrollIntoView } from "@/components/utils/utilities";
 
-const SongCollection = ({ currentTab }) => {
+const SongCollection = ({ currentTab, currentSongId }) => {
   //access states
   const { songCollections, setSongCollections } = useContext(SpotifyContext);
   const [filteredCollections, setFilteredCollection] = useState([]);
@@ -69,6 +70,11 @@ const SongCollection = ({ currentTab }) => {
   useEffect(() => {
     filterCollectionForTab();
   }, [currentTab]);
+  useEffect(() => {
+    if (currentSongId) {
+      scrollIntoView(`song${currentSongId}`);
+    }
+  }, [currentSongId]);
 
   //component return
   return (
@@ -82,4 +88,5 @@ const SongCollection = ({ currentTab }) => {
 
 export default connect(({ currentSong }) => ({
   currentTab: currentSong.currentTab || "",
+  currentSongId: currentSong.currentSongId || "",
 }))(SongCollection);
