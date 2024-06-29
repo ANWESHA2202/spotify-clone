@@ -31,6 +31,13 @@ const SongCollection = ({ currentTab }) => {
   };
 
   //helper functions
+
+  /**
+   *
+   * @param {Array} collections represents the all songs collection
+   * @param {string} searchValue represents the song/artist user wants to search for
+   * this function is responsible to filter the data according to active tab and search value both
+   */
   const filterCollectionForTab = (
     collections = songCollections,
     searchValue = ""
