@@ -11,9 +11,15 @@ import {
   FastForwardRounded,
   FastRewindOutlined,
   FastRewindRounded,
+  MoreHorizRounded,
   PauseCircle,
   PlayCircleFilledRounded,
+  VolumeUpRounded,
 } from "@mui/icons-material";
+import {
+  findNextSongOfActiveTab,
+  findPrevSongOfActiveTab,
+} from "@/components/utils/utilities";
 
 let INTERVAL = null;
 
@@ -77,31 +83,25 @@ const CurrentSong = ({ currentSongId, currentTab }) => {
         audio.pause();
         break;
       }
-      case "forward": {
-        let forwardValue = 5;
-        let maxDuration = audioRef.current.duration;
-        let currentTime = audioRef.current.currentTime;
-        if (currentTime + forwardValue > maxDuration) {
-          audioRef.current.currentTime = maxDuration;
-          audio.pause();
-          clearInterval(INTERVAL);
-          setIsPlaying(false);
-        } else {
-          audioRef.current.currentTime += forwardValue;
-        }
-        playerRef.current.value = audioRef.current.currentTime;
-
+      case "next": {
+        let nextSong = findNextSongOfActiveTab(
+          currentSongId,
+          songCollections,
+          currentTab
+        );
+        dispatch(modifyCurrentSong(nextSong?.id));
+        setCurrentSongData(nextSong);
         break;
       }
-      case "rewind": {
-        let rewindValue = 5;
-        let currentTime = audioRef.current.currentTime;
-        if (currentTime - rewindValue < 0) {
-          audio.currentTime = 0;
-        } else {
-          audio.currentTime -= rewindValue;
-        }
-        playerRef.current.value = audioRef.current.currentTime;
+      case "previous": {
+        let prevSong = findPrevSongOfActiveTab(
+          currentSongId,
+          songCollections,
+          currentTab
+        );
+        dispatch(modifyCurrentSong(prevSong?.id));
+        setCurrentSongData(prevSong);
+
         break;
       }
     }
@@ -151,26 +151,34 @@ const CurrentSong = ({ currentSongId, currentTab }) => {
             onChange={(e) => hadnleSeekAudio(e)}
           />
           <div className={styles.playerControllers}>
-            <span
-              onClick={() => {
-                handlePlayAudio("rewind");
-              }}
-            >
-              <FastRewindRounded />
+            <span className={styles.cornerIcons}>
+              <MoreHorizRounded />
             </span>
-            <span
-              onClick={() => {
-                handlePlayAudio(!isPlaying ? "play" : "pause");
-              }}
-            >
-              {!isPlaying ? <PlayCircleFilledRounded /> : <PauseCircle />}
-            </span>
-            <span
-              onClick={() => {
-                handlePlayAudio("forward");
-              }}
-            >
-              <FastForwardRounded />
+            <div>
+              <span
+                onClick={() => {
+                  handlePlayAudio("previous");
+                }}
+              >
+                <FastRewindRounded />
+              </span>
+              <span
+                onClick={() => {
+                  handlePlayAudio(!isPlaying ? "play" : "pause");
+                }}
+              >
+                {!isPlaying ? <PlayCircleFilledRounded /> : <PauseCircle />}
+              </span>
+              <span
+                onClick={() => {
+                  handlePlayAudio("next");
+                }}
+              >
+                <FastForwardRounded />
+              </span>
+            </div>
+            <span className={styles.cornerIcons}>
+              <VolumeUpRounded />
             </span>
           </div>
         </div>

@@ -30,3 +30,51 @@ export async function getAudioDuration(audioUrl = "") {
     };
   });
 }
+
+export const findNextSongOfActiveTab = (
+  currentSongId = "",
+  songCollections = [],
+  activeTab = ""
+) => {
+  let nextSong = {};
+  let nextSongs = structuredClone(songCollections)?.filter((song) => {
+    if (activeTab === "foryou") {
+      return true;
+    } else {
+      return song?.top_track === true;
+    }
+  });
+  let idxOfCurrentSong = nextSongs?.findIndex(
+    (song) => song?.id === currentSongId
+  );
+  if (idxOfCurrentSong + 1 === nextSongs?.length) {
+    nextSong = nextSongs[0];
+  } else {
+    nextSong = nextSongs[idxOfCurrentSong + 1];
+  }
+  return nextSong;
+};
+
+export const findPrevSongOfActiveTab = (
+  currentSongId = "",
+  songCollections = [],
+  activeTab = ""
+) => {
+  let prevSong = {};
+  let prevSongs = structuredClone(songCollections)?.filter((song) => {
+    if (activeTab === "foryou") {
+      return true;
+    } else {
+      return song?.top_track === true;
+    }
+  });
+  let idxOfCurrentSong = prevSongs?.findIndex(
+    (song) => song?.id === currentSongId
+  );
+  if (idxOfCurrentSong - 1 < 0) {
+    prevSong = prevSongs[prevSongs.length - 1];
+  } else {
+    prevSong = prevSongs[idxOfCurrentSong - 1];
+  }
+  return prevSong;
+};

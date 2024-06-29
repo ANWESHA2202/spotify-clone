@@ -148,8 +148,34 @@
       }
 
       .playerControllers {
-        > span {
-          cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .cornerIcons {
+          background: #ffffff3b;
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        div {
+          > span {
+            cursor: pointer;
+            margin: 0 1rem;
+            svg {
+              font-size: 2.5rem;
+              color: #ffffff;
+            }
+          }
+          > span:nth-of-type(odd) {
+            svg {
+              path {
+                color: #ffffff75;
+              }
+            }
+          }
         }
       }
     }
