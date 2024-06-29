@@ -121,7 +121,7 @@ const CurrentSong = ({ currentSongId, currentTab, previousSongStack }) => {
     }
   };
 
-  const hadnleSeekAudio = (e) => {
+  const handleSeekAudio = (e) => {
     audioRef.current.currentTime = playerRef.current.value;
     handlePlayAudio("play");
   };
@@ -154,7 +154,7 @@ const CurrentSong = ({ currentSongId, currentTab, previousSongStack }) => {
             type="range"
             id="player"
             ref={playerRef}
-            onChange={(e) => hadnleSeekAudio(e)}
+            onChange={(e) => handleSeekAudio(e)}
           />
           <div className={styles.playerControllers}>
             <span className={styles.cornerIcons}>
