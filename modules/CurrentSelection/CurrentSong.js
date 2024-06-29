@@ -1,6 +1,7 @@
 //hooks import
 import { connect, useDispatch } from "react-redux";
 import { useContext, useEffect, useRef, useState } from "react";
+import { useMediaQuery } from "@mui/material";
 //import styles
 import styles from "@/modules/spotify.module.scss";
 //context
@@ -11,6 +12,7 @@ import {
 } from "@/components/redux/slices/currentSongSlice";
 //ui components from lib
 import {
+  ArrowBackIosRounded,
   FastForwardRounded,
   FastRewindRounded,
   MoreHorizRounded,
@@ -24,6 +26,7 @@ import {
   findNextSongOfActiveTab,
   findPrevSongOfActiveTab,
 } from "@/components/utils/utilities";
+import Profile from "../Profile/Profile";
 
 //global variable
 let INTERVAL = null;
@@ -31,6 +34,8 @@ let INTERVAL = null;
 const CurrentSong = ({ currentSongId, currentTab, previousSongStack }) => {
   //hooks instances
   const dispatch = useDispatch();
+  const matches = useMediaQuery("@media (max-width: 800px)");
+
   const audioRef = useRef(null);
   const playerRef = useRef(null);
   //access states
@@ -60,6 +65,16 @@ const CurrentSong = ({ currentSongId, currentTab, previousSongStack }) => {
       dispatch(modifyCurrentSong(firstSong?.id));
       setCurrentSongData(firstSong);
     }
+  };
+
+  const handleBack = () => {
+    if (!matches) return;
+    let ele = document.getElementById("songCollectionsContainer");
+    let eleToHide = document.getElementById("playerContainer");
+    ele.style.width = "100%";
+    eleToHide.classList.add(styles.inactive);
+    ele.classList.remove(styles.inactive);
+    eleToHide.style.width = 0;
   };
 
   const handlePlayAudio = (action = "play") => {
@@ -134,10 +149,13 @@ const CurrentSong = ({ currentSongId, currentTab, previousSongStack }) => {
   }, [songCollections]);
 
   return (
-    <div className={styles.playerContainer}>
+    <div className={styles.playerContainer} id="playerContainer">
       <section>
         <div className={styles.songInfo}>
-          <span>{currentSongData?.name}</span>
+          <span onClick={() => handleBack()}>
+            {matches ? <ArrowBackIosRounded /> : null}
+            {currentSongData?.name}
+          </span>
           <span>{currentSongData?.artist}</span>
         </div>
         <div className={styles.songPoster}>

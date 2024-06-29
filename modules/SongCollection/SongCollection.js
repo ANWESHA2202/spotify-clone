@@ -1,5 +1,6 @@
 //hooks import
 import { useContext, useEffect, useState } from "react";
+import { useMediaQuery } from "@mui/material";
 import { connect } from "react-redux";
 //context import
 import { SpotifyContext } from "../Spotify";
@@ -14,6 +15,9 @@ import fetcher from "@/components/utils/fetcher";
 import { scrollIntoView } from "@/components/utils/utilities";
 
 const SongCollection = ({ currentTab, currentSongId }) => {
+  //hook instances
+  const matches = useMediaQuery("@media (max-width: 800px)");
+
   //access states
   const { songCollections, setSongCollections } = useContext(SpotifyContext);
   const [filteredCollections, setFilteredCollection] = useState([]);
@@ -71,14 +75,17 @@ const SongCollection = ({ currentTab, currentSongId }) => {
     filterCollectionForTab();
   }, [currentTab]);
   useEffect(() => {
-    if (currentSongId) {
+    if (currentSongId && !matches) {
       scrollIntoView(`song${currentSongId}`);
     }
   }, [currentSongId]);
 
   //component return
   return (
-    <div className={styles.songCollectionsContainer}>
+    <div
+      className={styles.songCollectionsContainer}
+      id="songCollectionsContainer"
+    >
       <TabsSwitcher />
       <Search filterCollectionForTab={filterCollectionForTab} />
       <CurrentTabCollection collection={filteredCollections} />

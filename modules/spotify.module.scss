@@ -91,6 +91,9 @@
       .duration {
         color: #ffffffb2;
         text-align: right;
+        svg {
+          font-size: 1rem;
+        }
       }
     }
   }
@@ -179,5 +182,68 @@
         }
       }
     }
+  }
+}
+
+//media queries to handle small screens
+@media (max-width: 800px) {
+  .spotifyContainer {
+    grid-template-columns: 100%;
+    // grid-template-columns: 1fr 1fr;
+    transition: all 0.5s ease-in-out;
+
+    > div:nth-child(1) {
+      // grid-column: 1 / span 2;
+      height: 3vh;
+      max-height: 3vh;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    > div:nth-child(2),
+    > div:nth-child(3) {
+      height: auto;
+      min-height: 50vh;
+    }
+    > div:nth-child(3) {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .profileContainer {
+      height: 100%;
+      flex-direction: row;
+      align-items: center;
+      margin: 0.5rem 0;
+    }
+  }
+
+  .playerContainer {
+    align-items: flex-start;
+    section {
+      .profileContainer {
+        height: 3rem;
+        min-height: 3rem !important;
+        flex-direction: row;
+      }
+      .songPoster {
+        img {
+          width: 100%;
+          height: 300px;
+        }
+      }
+    }
+  }
+}
+
+.currentTabs {
+  display: flex;
+}
+
+.inactive {
+  * {
+    width: 0;
+    display: none;
   }
 }
