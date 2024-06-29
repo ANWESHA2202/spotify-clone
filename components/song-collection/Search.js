@@ -14,6 +14,12 @@ const Search = ({ filterCollectionForTab = () => {} }) => {
   //access states
   const { songCollections } = useContext(SpotifyContext);
 
+  /**
+   *
+   * @param {string} searchValue represents the artist/song user wants to search for
+   * here the concept of DEBOUNCING is implemented to update the collection after a short span of time,
+   * so that the states update efficiently
+   */
   const handleSearching = async (searchValue = "") => {
     if (DEBOUNCE) clearTimeout(DEBOUNCE);
     DEBOUNCE = setTimeout(() => {

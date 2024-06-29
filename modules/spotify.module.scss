@@ -95,3 +95,63 @@
     }
   }
 }
+
+//CurrentSong/Player section styles
+.playerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  section {
+    .songInfo {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      > span:nth-child(1) {
+        font-weight: 700;
+        font-size: 32px;
+      }
+      > span:nth-child(2) {
+        font-weight: 400;
+        font-size: 14px;
+        color: #ffffff8c;
+      }
+    }
+    .songPoster {
+      margin: 2rem 0 0.5rem;
+      img {
+        width: 350px;
+        height: 350px;
+        border-radius: 10px;
+      }
+    }
+    .audioControllers {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      input {
+        width: 100%;
+        border-radius: 2px;
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, 0.205);
+        accent-color: #fff;
+        &::-webkit-slider-thumb {
+          visibility: hidden;
+        }
+
+        &::-webkit-slider-runnable-track {
+          height: 4px;
+          border-radius: 5px;
+          outline: none;
+          border: 1px solid rgba(0, 0, 0, 0.205);
+          background: rgba(0, 0, 0, 0.205);
+        }
+      }
+
+      .playerControllers {
+        > span {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

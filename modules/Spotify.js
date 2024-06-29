@@ -5,6 +5,7 @@ import styles from "./spotify.module.scss";
 //ui components
 import Profile from "./Profile/Profile";
 import SongCollection from "./SongCollection/SongCollection";
+import CurrentSong from "./CurrentSelection/CurrentSong";
 
 //create context
 export const SpotifyContext = createContext();
@@ -33,6 +34,7 @@ const Spotify = () => {
       >
         <Profile />
         <SongCollection />
+        <CurrentSong />
       </div>
     </SpotifyContext.Provider>
   );
