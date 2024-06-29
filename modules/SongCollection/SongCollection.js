@@ -23,6 +23,7 @@ const SongCollection = ({ currentTab }) => {
       const { data, status } = await fetcher("items/songs");
       if (status === 200) {
         setSongCollections(data?.data);
+        filterCollectionForTab(data?.data);
       }
     } catch (err) {
       console.log(err);
@@ -30,14 +31,27 @@ const SongCollection = ({ currentTab }) => {
   };
 
   //helper functions
-  const filterCollectionForTab = () => {
-    let filteredData = songCollections?.filter((song) => {
-      if (currentTab === "foryou") {
-        return true;
-      } else {
-        return song?.top_track === true;
-      }
-    });
+  const filterCollectionForTab = (
+    collections = songCollections,
+    searchValue = ""
+  ) => {
+    let filteredData = [];
+
+    if (searchValue?.length) {
+      filteredData = collections?.filter(
+        (song) =>
+          song?.artist?.toLowerCase()?.includes(searchValue?.toLowerCase()) ||
+          song?.name?.toLowerCase()?.includes(searchValue?.toLowerCase())
+      );
+    } else {
+      filteredData = collections?.filter((song) => {
+        if (currentTab === "foryou") {
+          return true;
+        } else {
+          return song?.top_track === true;
+        }
+      });
+    }
     setFilteredCollection(filteredData);
   };
 
@@ -53,7 +67,7 @@ const SongCollection = ({ currentTab }) => {
   return (
     <div className={styles.songCollectionsContainer}>
       <TabsSwitcher />
-      {/* <Search /> */}
+      <Search filterCollectionForTab={filterCollectionForTab} />
       <CurrentTabCollection collection={filteredCollections} />
     </div>
   );
