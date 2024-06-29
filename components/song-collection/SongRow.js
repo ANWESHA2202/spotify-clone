@@ -6,10 +6,7 @@ import { SpotifyContext } from "@/modules/Spotify";
 import { connect, useDispatch } from "react-redux";
 import { modifyCurrentSong } from "../redux/slices/currentSongSlice";
 import { useMediaQuery } from "@mui/material";
-import {
-  ArrowBackIosRounded,
-  ArrowForwardIosRounded,
-} from "@mui/icons-material";
+import { ArrowForwardIosRounded } from "@mui/icons-material";
 
 const SongRow = ({ songData = {}, currentSongId }) => {
   //hook instances
