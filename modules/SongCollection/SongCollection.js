@@ -20,6 +20,8 @@ const SongCollection = ({ currentTab, currentSongId }) => {
 
   //access states
   const { songCollections, setSongCollections } = useContext(SpotifyContext);
+  //define states
+  const [isFetching, setIsFetching] = useState(true);
   const [filteredCollections, setFilteredCollection] = useState([]);
 
   //api callers
@@ -29,6 +31,7 @@ const SongCollection = ({ currentTab, currentSongId }) => {
       if (status === 200) {
         setSongCollections(data?.data);
         filterCollectionForTab(data?.data);
+        setIsFetching(false);
       }
     } catch (err) {
       console.log(err);
@@ -88,7 +91,10 @@ const SongCollection = ({ currentTab, currentSongId }) => {
     >
       <TabsSwitcher />
       <Search filterCollectionForTab={filterCollectionForTab} />
-      <CurrentTabCollection collection={filteredCollections} />
+      <CurrentTabCollection
+        collection={filteredCollections}
+        isFetching={isFetching}
+      />
     </div>
   );
 };

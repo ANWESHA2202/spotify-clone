@@ -247,3 +247,17 @@
     display: none;
   }
 }
+
+.collectionsSkeleton {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+  div {
+    display: flex;
+    gap: 0.5rem;
+    span {
+      background: #ffffff3b;
+    }
+  }
+}

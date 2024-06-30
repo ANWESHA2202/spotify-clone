@@ -1,7 +1,7 @@
 //hooks import
 import { connect, useDispatch } from "react-redux";
 import { useContext, useEffect, useRef, useState } from "react";
-import { useMediaQuery } from "@mui/material";
+import { Skeleton, useMediaQuery } from "@mui/material";
 //import styles
 import styles from "@/modules/spotify.module.scss";
 //context
@@ -43,6 +43,7 @@ const CurrentSong = ({ currentSongId, currentTab, previousSongStack }) => {
     useContext(SpotifyContext);
 
   //define states
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const fetchFirstCurrentSong = () => {
@@ -159,7 +160,14 @@ const CurrentSong = ({ currentSongId, currentTab, previousSongStack }) => {
           <span>{currentSongData?.artist}</span>
         </div>
         <div className={styles.songPoster}>
-          <img src={`${BASE_URL}/assets/${currentSongData?.cover}`} />
+          <img
+            src={`${BASE_URL}/assets/${currentSongData?.cover}`}
+            onLoad={() => setIsImageLoaded(true)}
+            style={{ width: !isImageLoaded && 0, height: !isImageLoaded && 0 }}
+          />
+          {!isImageLoaded ? (
+            <Skeleton variant="rectangle" height={200} width={200} />
+          ) : null}
         </div>
         <div className={styles.audioControllers}>
           <audio
